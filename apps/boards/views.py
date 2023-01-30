@@ -39,7 +39,7 @@ class BoardView(ListCreateAPIView):
 class BoardDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+    permission_classes = [IsAuthorOrReadOnly]
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
