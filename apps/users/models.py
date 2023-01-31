@@ -32,6 +32,7 @@ class CustomUserManager(BaseUserManager):
             name=name
         )
 
+        superuser.is_staff = True
         superuser.is_superuser = True
         superuser.is_active = True
         superuser.save(using=self._db)
@@ -73,6 +74,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
     is_superuser = models.BooleanField(
         verbose_name=_('Is superuser'),
+        default=False
+        )
+    is_staff = models.BooleanField(
+        verbose_name=_('Is staff'),
         default=False
         )
     date_joined = models.DateTimeField(
