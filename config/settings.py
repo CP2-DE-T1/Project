@@ -13,7 +13,6 @@ import os
 import pymysql
 import datetime
 import environ
-from .logging import CustomisedJSONFormatter
 
 from pathlib import Path
 
@@ -169,53 +168,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Logging Setting
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format' : "[%(asctime)s] %(levelname)s %(name)s:%(lineno)s %(message)s",
-            'datefmt' : "%Y-%m-%d %H:%M:%S"
-        },
-        'json': {
-            '()': CustomisedJSONFormatter,
-        }
-    },
-    'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
-         'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard',
-        },
-          'log_file1': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs/log_file1.log',
-            'formatter': 'standard',
-        },
-        'json_logger': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs/json_logger.log',
-            'formatter': 'json',
-        },
-    },
-    'loggers': {
-         'log_file1': {
-            'handlers': ['log_file1'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'json_logger': {
-            'handlers': ['json_logger'],
-            'level': 'INFO',
-            'propagate': False,
-        }
-    }
-}
