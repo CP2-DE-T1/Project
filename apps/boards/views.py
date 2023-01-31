@@ -1,17 +1,19 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import Board
 from .serializers import BoardSerializer
-
-
 from .permissions import IsAuthorOrReadOnly
+import logging
+
+logger = logging.getLogger('json_logger')
+
+
 class BoardView(ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    permissions_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthorOrReadOnly]
 
     def perform_create(self, serializer):
         # 현재 요청한 유저를 작성자로 설정
@@ -26,6 +28,8 @@ class BoardView(ListCreateAPIView):
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
+        logger.info("GET access Board List", extra={'request':request})
+
         return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
@@ -33,6 +37,8 @@ class BoardView(ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
+        logger.info("POST access Board Creation", extra={'request':request})
+
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
@@ -46,6 +52,8 @@ class BoardDetailView(RetrieveUpdateDestroyAPIView):
         instance.hit += 1  # 조회수 1 증가
         instance.save()
         serializer = self.get_serializer(instance)
+        logger.info("GET access Board Detail", extra={'request':request})
+
         return Response(serializer.data)
 
     def update(self, request, *args, **kwargs):
@@ -58,13 +66,23 @@ class BoardDetailView(RetrieveUpdateDestroyAPIView):
         if getattr(instance, '_prefetched_objects_cache', None):
             instance._prefetched_objects_cache = {}
 
+        logger.info("PUT access Board Detail", extra={'request':request})
+
+
         return Response(serializer.data)
 
     def partial_update(self, request, *args, **kwargs):
         kwargs['partial'] = True
+        logger.info("PATCH access Board Detail", extra={'request':request})
+
         return self.update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
+        logger.info("DELETE access Board Detail", extra={'request':request})
+
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
