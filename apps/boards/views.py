@@ -4,7 +4,7 @@ from rest_framework import status
 
 from .models import Board
 from .serializers import BoardSerializer
-from .permissions import IsAuthorOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 import logging
 
 logger = logging.getLogger('json_logger')
@@ -13,7 +13,7 @@ logger = logging.getLogger('json_logger')
 class BoardView(ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         # 현재 요청한 유저를 작성자로 설정
@@ -45,7 +45,7 @@ class BoardView(ListCreateAPIView):
 class BoardDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -83,6 +83,3 @@ class BoardDetailView(RetrieveUpdateDestroyAPIView):
         logger.info("DELETE access Board Detail", extra={'request':request})
 
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-
