@@ -5,6 +5,7 @@ from rest_framework import status
 from .models import Board
 from .serializers import BoardSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .permissions import IsAuthorOrReadOnly
 import logging
 
 logger = logging.getLogger('json_logger')
@@ -45,7 +46,7 @@ class BoardView(ListCreateAPIView):
 class BoardDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthorOrReadOnly]
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
