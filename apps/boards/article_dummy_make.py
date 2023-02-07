@@ -40,7 +40,8 @@ def signin_api(username, password="test"):
     return response.json()
 
 
-user = "test"+str(random.randint(1,5000))
-title = "Dummy Article"
-content = "This is for making bulk log data"
-board_api(method='POST', title=title, content=content, username=user)
+for i in range(5000):
+    user = "test"+str(random.randint(1,5000))
+    title = "Dummy Article"
+    content = "This is for making bulk log data"
+    board_api(method='POST', title=title, content=content, username=user)
