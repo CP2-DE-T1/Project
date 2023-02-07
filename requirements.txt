@@ -7,7 +7,6 @@ blessed==1.19.1
 botocore==1.23.54
 cached-property==1.5.2
 cement==2.8.2
-certifi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_477u68wvzm/croot/certifi_1671487773341/work/certifi
 cffi==1.15.1
 charset-normalizer==3.0.1
 cryptography==39.0.0
