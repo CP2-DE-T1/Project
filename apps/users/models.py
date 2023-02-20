@@ -62,11 +62,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=6, 
         choices=GENDER_CHOICES, 
         null=False, 
-        blank=False
+        blank=False,
+        default='Male'
         )
     birth_date = models.DateField(
         verbose_name=_('Birth Date'),
-        null=False
+        null=False,
+        default='2000-01-01'
         )
     is_active = models.BooleanField(
         verbose_name=_('Is active'),
