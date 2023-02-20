@@ -14,7 +14,8 @@ class GenderStatistics(APIView):
     def get(self, request):
         male_total = User.objects.filter(gender='Male').count()
         female_total = User.objects.filter(gender='Female').count()
-        return Response({'남자 회원 수': male_total, '여자 회원 수': female_total})
+        user_gender_total = User.objects.count()
+        return Response({'남자 회원 수': male_total, '여자 회원 수': female_total, '총 회원 수':user_gender_total})
 
 
 #연령대 별 통계
