@@ -68,7 +68,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'apps.users.apps.UsersConfig',
-    'apps.boards.apps.BoardsConfig',    
+    'apps.boards.apps.BoardsConfig',
+    'log_extract'  
 ]
 
 MIDDLEWARE = [
