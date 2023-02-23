@@ -8,6 +8,11 @@ coverY: 0
 
 
 
-## AWS 배포
+## 서비스 배포
 
 AWS EC2 배포: 3.34.232.234:8000/
+
+API doc:
+
+<figure><img src=".gitbook/assets/배포.png" alt=""><figcaption><p>ec2 배포 성공 사진</p></figcaption></figure>
+
