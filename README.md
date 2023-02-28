@@ -8,7 +8,7 @@
 
 AWS EC2 배포: 3.34.232.234:8000/
 
-API doc:
+API doc: [https://code-cp2.gitbook.io/crud-api-doc/](https://code-cp2.gitbook.io/crud-api-doc/)
 
 <figure><img src=".gitbook/assets/배포.png" alt=""><figcaption></figcaption></figure>
 
